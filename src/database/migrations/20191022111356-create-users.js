@@ -21,7 +21,6 @@ module.exports = {
                 type: Sequelize.STRING,
             },
             department_id: {
-                allowNull: false,
                 type: Sequelize.INTEGER,
                 references: { model: { tableName: 'symzhitov_departments' }, key: 'id' },
             },
