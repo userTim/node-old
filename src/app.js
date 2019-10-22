@@ -1,6 +1,6 @@
 import express, { json, urlencoded } from 'express'
 import morgan from 'morgan'
-import { usersRoute, companiesRoute } from './routes'
+import { usersRouter, companiesRouter, departmentsRouter } from './routes'
 import { RequestError } from './errors'
 
 const app = express()
@@ -9,8 +9,9 @@ app.use(morgan('dev'))
 app.use(json())
 app.use(urlencoded({ extended: false }))
 
-app.use('/users', usersRoute)
-app.use('/companies', companiesRoute)
+app.use('/users', usersRouter)
+app.use('/companies', companiesRouter)
+app.use('/departments', departmentsRouter)
 
 app.use((req, res, next) => {
     const error = new RequestError({

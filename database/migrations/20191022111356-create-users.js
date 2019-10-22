@@ -23,6 +23,7 @@ module.exports = {
             department_id: {
                 type: Sequelize.INTEGER,
                 references: { model: { tableName: 'symzhitov_departments' }, key: 'id' },
+                onDelete: 'SET NULL',
             },
             createdAt: {
                 allowNull: false,

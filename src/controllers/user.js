@@ -1,4 +1,4 @@
-import { User } from '../models'
+import { User, Department } from '../models'
 import { RequestError } from '../errors'
 
 export async function getUsers(req, res, next) {
@@ -10,6 +10,13 @@ export async function getUsers(req, res, next) {
             offset,
             limit,
             attributes: ['name'],
+            include: [
+                {
+                    model: Department,
+                    as: 'department',
+                    attributes: ['name', 'id'],
+                },
+            ],
         })
 
         res.json({ data: users })
@@ -23,9 +30,9 @@ export async function updateUser(req, res, next) {
     const { name } = req.body
 
     try {
-        const user = await getOneUser(id)
+        const user = await getUserById(id)
 
-        if (typeof user === 'undefined') return next(new RequestError("User with such id doens't exist"))
+        if (user === null) return next(new RequestError("User with such id doesn't exist"))
 
         await user.update({ name })
 
@@ -35,7 +42,7 @@ export async function updateUser(req, res, next) {
     }
 }
 
-async function getOneUser(id) {
+async function getUserById(id) {
     try {
         const result = await User.findOne({ where: { id } })
         return result
