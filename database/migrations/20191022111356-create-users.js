@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('symzhitov_departments', {
+        return queryInterface.createTable('symzhitov_users', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -12,23 +12,31 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.STRING,
             },
-            company_id: {
+            login: {
                 allowNull: false,
+                type: Sequelize.STRING,
+            },
+            password: {
+                allowNull: false,
+                type: Sequelize.STRING,
+            },
+            department_id: {
                 type: Sequelize.INTEGER,
-                references: { model: { tableName: 'symzhitov_companies' }, key: 'id' },
-                onDelete: 'CASCADE',
+                references: { model: { tableName: 'symzhitov_departments' }, key: 'id' },
             },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
+                defaultValue: Sequelize.fn('now'),
             },
             updatedAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
+                defaultValue: Sequelize.fn('now'),
             },
         })
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('symzhitov_departments')
+        return queryInterface.dropTable('symzhitov_users')
     },
 }
