@@ -1,3 +1,6 @@
 /dist
 /node_modules
 /config/database.json
+
+sequelize-data.json
+sequelize-meta.json
