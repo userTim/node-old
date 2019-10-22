@@ -1,11 +1,15 @@
 import { Router } from 'express'
-import { UserController } from '../controllers'
+import { UserController, Authentication } from '../controllers'
+import { AuthCheck, UserIdCheck } from '../middlewares'
 
 const router = Router()
 
-const { signupUser, loginUser } = UserController
+const { signupUser, loginUser } = Authentication
+const { getUsers, updateUser } = UserController
 
 router.post('/signup', signupUser)
 router.post('/login', loginUser)
+router.get('/', AuthCheck, getUsers)
+router.patch('/:id', AuthCheck, UserIdCheck, updateUser)
 
 export default router
