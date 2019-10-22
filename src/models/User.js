@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     )
     User.associate = function(models) {
-        User.belongsTo(models.Department, { foreignKey: 'id', targetKey: 'department_id' })
+        User.belongsTo(models.Department, { foreignKey: 'department_id' })
     }
     return User
 }

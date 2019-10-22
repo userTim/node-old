@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
         }
     )
     Company.associate = function(models) {
-        Company.hasMany(models.Department, { foreignKey: 'id', sourceKey: 'company_id' })
+        Company.hasMany(models.Department, { foreignKey: 'company_id' })
     }
     return Company
 }
