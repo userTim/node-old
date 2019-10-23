@@ -5,6 +5,8 @@
         "database": "db_name",
         "host": "localhost",
         "port": "5432",
-        "dialect": "mysql"
+        "dialect": "mysql",
+        "migrationStorage": "json",
+        "seederStorage": "json"
     }
 }
