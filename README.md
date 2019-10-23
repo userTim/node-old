@@ -21,7 +21,7 @@ department { name:required }
 post '/signup'  регистрация { name, login, password } эти обязательны   
 post '/login'  token в response body  
 get '/' (auth)  вытащить всех юзеров  
-patch '/' (auth)  можно изменить только свои данные  
+patch '/:id' (auth)  можно изменить только свои данные  
 
 Все пути ниже заперты за токенами  
 #### /projects  
