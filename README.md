@@ -1,10 +1,10 @@
 ## node-force
 
 настроить дб-конфиг по примеру config/database.example.json  
-запускать только npm run dev (билдиться криво)
-есть миграции и сидеры
-запускать сидеры на только созданных таблицах и только поочередно create-companies > create-departments > create-users > create-projects > create-projects_users
-есть пагинация на рутовых get "/?page=n&limit=m"
+запускать только npm run dev (билдиться криво)  
+есть миграции и сидеры  
+запускать сидеры на только созданных таблицах и только поочередно create-companies > create-departments > create-users > create-projects > create-projects_users  
+есть пагинация на рутовых get "/?page=n&limit=m"  
 
 ### Связи  
 Компания 1:n Отдел  
