@@ -12,10 +12,10 @@
 Проект n:m Юзер  
 
 ### Структура  
-user { name:required, login:required, password:required }
-project { name:required, description }
-company { name:required }
-department { name:required }
+user { name:required, login:required, password:required }  
+project { name:required, description }  
+company { name:required }  
+department { name:required }  
 
 #### /users  
 post '/signup'  регистрация { name, login, password } эти обязательны   
