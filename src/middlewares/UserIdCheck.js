@@ -1,11 +1,9 @@
 import { RequestError } from '../errors'
 
 export default function(req, res, next) {
-    const id = req.params.id
+    const id = req.params.userId
     const authId = req.userData.id
-
-    console.log(id, authId)
-
+    
     if (id == authId) return next()
 
     next(

@@ -19,17 +19,19 @@ export async function getCompanies(req, res, next) {
             ],
         })
 
-        res.json({ data: companies })
+        res.json(companies)
     } catch (err) {
         next(new RequestError("Error while retrieving companies' data"))
     }
 }
 
 export async function createCompany(req, res, next) {
-    const { name } = req.body
+    const createOptions = {}
+
+    Object.keys(req.body).forEach(fieldName => (createOptions[fieldName] = req.body[fieldName]))
 
     try {
-        await Company.create({ name })
+        await Company.create(createOptions)
 
         res.status(201).json({ message: 'Company created' })
     } catch (err) {
@@ -39,14 +41,16 @@ export async function createCompany(req, res, next) {
 
 export async function updateCompany(req, res, next) {
     const { companyId } = req.params
-    const { name } = req.body
+    const updateOptions = {}
+
+    Object.keys(req.body).forEach(fieldName => (updateOptions[fieldName] = req.body[fieldName]))
 
     try {
         const company = await getCompanyById(companyId)
 
         if (company === null) return next(new RequestError("Company with such id doesn't exist"))
 
-        await company.update({ name })
+        await company.update(updateOptions)
 
         res.status(200).json({ message: 'Company updated!' })
     } catch (error) {
@@ -65,7 +69,7 @@ export async function deleteCompany(req, res, next) {
     }
 }
 
-async function getCompanyById(id) {
+export async function getCompanyById(id) {
     try {
         const result = await Company.findOne({ where: { id } })
         return result

@@ -7,7 +7,10 @@ import { RequestError } from '../errors'
 const saltRanges = 10
 
 export async function signupUser(req, res, next) {
-    const { login, password, name } = req.body
+    const { login, password } = req.body
+    const createOptions = {}
+
+    Object.keys(req.body).forEach(fieldName => (createOptions[fieldName] = req.body[fieldName]))
 
     try {
         if (await doesUserExist(login)) {
@@ -19,13 +22,9 @@ export async function signupUser(req, res, next) {
             )
         }
 
-        const hash = await bcrypt.hash(password, saltRanges)
+        createOptions.password = await bcrypt.hash(password, saltRanges)
 
-        await User.create({
-            login,
-            name,
-            password: hash,
-        })
+        await User.create(createOptions)
 
         res.status(201).json({
             message: 'User created',

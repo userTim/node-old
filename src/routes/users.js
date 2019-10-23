@@ -10,6 +10,6 @@ const { getUsers, updateUser } = UserController
 router.post('/signup', signupUser)
 router.post('/login', loginUser)
 router.get('/', AuthCheck, getUsers)
-router.patch('/:id', AuthCheck, UserIdCheck, updateUser)
+router.patch('/:userId', AuthCheck, UserIdCheck, updateUser)
 
 export default router

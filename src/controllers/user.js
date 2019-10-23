@@ -1,4 +1,4 @@
-import { User, Department } from '../models'
+import { User, Department, Project } from '../models'
 import { RequestError } from '../errors'
 
 export async function getUsers(req, res, next) {
@@ -14,12 +14,18 @@ export async function getUsers(req, res, next) {
                 {
                     model: Department,
                     as: 'department',
-                    attributes: ['name', 'id'],
+                    attributes: ['id', 'name'],
+                },
+                {
+                    model: Project,
+                    as: 'projects',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] },
                 },
             ],
         })
 
-        res.json({ data: users })
+        res.json(users)
     } catch (err) {
         next(new RequestError("Error while retrieving users' data"))
     }
@@ -27,14 +33,16 @@ export async function getUsers(req, res, next) {
 
 export async function updateUser(req, res, next) {
     const { id } = req.params
-    const { name } = req.body
+    const updateOptions = {}
+
+    Object.keys(req.body).forEach(fieldName => (updateOptions[fieldName] = req.body[fieldName]))
 
     try {
         const user = await getUserById(id)
 
         if (user === null) return next(new RequestError("User with such id doesn't exist"))
 
-        await user.update({ name })
+        await user.update(updateOptions)
 
         res.status(200).json({ message: 'User updated!' })
     } catch (error) {

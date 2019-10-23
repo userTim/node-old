@@ -1,5 +1,4 @@
-'use strict'
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const User = sequelize.define(
         'User',
         {
@@ -14,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
     )
     User.associate = function(models) {
         User.belongsTo(models.Department, { foreignKey: 'department_id', as: 'department' })
+        User.belongsToMany(models.Project, {
+            through: 'symzhitov_projects_users',
+            sourceKey: 'id',
+            foreignKey: 'user_id',
+            as: 'projects',
+        })
     }
     return User
 }
