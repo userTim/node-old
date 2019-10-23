@@ -12,16 +12,16 @@
 Проект n:m Юзер  
 
 ### Структура  
-user { name:required, login:required, password:required }
-project { name:required, description }
-company { name:required }
-department { name:required }
+user { name:required, login:required, password:required }  
+project { name:required, description }  
+company { name:required }  
+department { name:required }  
 
 #### /users  
 post '/signup'  регистрация { name, login, password } эти обязательны   
 post '/login'  token в response body  
 get '/' (auth)  вытащить всех юзеров  
-patch '/' (auth)  можно изменить только свои данные  
+patch '/:id' (auth)  можно изменить только свои данные  
 
 Все пути ниже заперты за токенами  
 #### /projects  
