@@ -61,6 +61,7 @@ export async function getDepartmentsByCompany(req, res, next) {
                     attributes: ['id', 'name', 'login'],
                 },
             ],
+            order: [['id', 'ASC']],
         })
 
         res.json(departments)

@@ -17,6 +17,7 @@ export async function getCompanies(req, res, next) {
                     as: 'departments',
                 },
             ],
+            order: [['id', 'ASC']],
         })
 
         res.json(companies)

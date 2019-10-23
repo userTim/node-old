@@ -9,7 +9,7 @@ export async function getUsers(req, res, next) {
         const users = await User.findAll({
             offset,
             limit: +limit,
-            attributes: ['name'],
+            attributes: ['id', 'name'],
             include: [
                 {
                     model: Department,
@@ -23,6 +23,7 @@ export async function getUsers(req, res, next) {
                     through: { attributes: [] },
                 },
             ],
+            order: [['id', 'ASC']],
         })
 
         res.json(users)
@@ -32,13 +33,16 @@ export async function getUsers(req, res, next) {
 }
 
 export async function updateUser(req, res, next) {
-    const { id } = req.params
+    const { userId } = req.params
     const updateOptions = {}
 
-    Object.keys(req.body).forEach(fieldName => (updateOptions[fieldName] = req.body[fieldName]))
+    Object.keys(req.body).forEach(fieldName => {
+        if (fieldName === 'password') return
+        updateOptions[fieldName] = req.body[fieldName]
+    })
 
     try {
-        const user = await getUserById(id)
+        const user = await getUserById(userId)
 
         if (user === null) return next(new RequestError("User with such id doesn't exist"))
 

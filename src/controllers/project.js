@@ -19,6 +19,7 @@ export async function getProjects(req, res, next) {
                     through: { attributes: [] },
                 },
             ],
+            order: [['id', 'ASC']],
         })
 
         res.json(projects)
