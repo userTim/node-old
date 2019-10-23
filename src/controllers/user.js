@@ -2,13 +2,13 @@ import { User, Department, Project } from '../models'
 import { RequestError } from '../errors'
 
 export async function getUsers(req, res, next) {
-    const { page = 1, limit = 20 } = req.params
+    const { page = 1, limit = 20 } = req.query
     const offset = page * limit - limit
 
     try {
         const users = await User.findAll({
             offset,
-            limit,
+            limit: +limit,
             attributes: ['name'],
             include: [
                 {

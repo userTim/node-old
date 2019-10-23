@@ -3,13 +3,13 @@ import { RequestError } from '../errors'
 import { Op } from 'sequelize'
 
 export async function getProjects(req, res, next) {
-    const { page = 1, limit = 20 } = req.params
+    const { page = 1, limit = 20 } = req.query
     const offset = page * limit - limit
 
     try {
         const projects = await Project.findAll({
             offset,
-            limit,
+            limit: +limit,
             attributes: ['id', 'name', 'description'],
             include: [
                 {
