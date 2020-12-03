@@ -1,4 +1,4 @@
-## node-force
+## node-old
 
 настроить дб-конфиг по примеру config/database.example.json  
 запускать только npm run dev (билдиться криво)  
